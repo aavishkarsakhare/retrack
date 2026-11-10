@@ -1,3 +1,4 @@
+﻿const ML_URL = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
 const dashboardRoutes = require('./routes/dashboard.routes');
 require('dotenv').config();
 const authRoutes = require('./routes/auth.routes');
@@ -72,7 +73,7 @@ app.post('/api/predict-target', (req, res) => {
 // 6. ML: Get valid states
 app.get('/api/ml/states', async (req, res) => {
     try {
-        const response = await fetch('http://127.0.0.1:8000/states');
+        const response = await fetch(ML_URL + '/states');
         const data = await response.json();
         res.status(response.status).json(data);
     } catch (error) {
@@ -91,7 +92,7 @@ app.post('/api/ml/predict', async (req, res) => {
     try {
         const { state, year } = req.body;
 
-        const response = await fetch('http://127.0.0.1:8000/predict', {
+        const response = await fetch(ML_URL + '/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ state, year: Number(year) })
@@ -138,3 +139,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
