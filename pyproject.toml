@@ -1,2 +1,0 @@
-[tool.vercel]
-entrypoint = "EWaste_ML_Module/EWaste_Project/api.py:app"
